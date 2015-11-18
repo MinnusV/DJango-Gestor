@@ -1,0 +1,79 @@
+#fundo1 {
+background-image: url("../imgs/fundo1.png");
+background-repeat: no-repeat;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+#fundo2 {
+background-image: url("../imgs/fundo2.jpg");
+background-repeat: no-repeat;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+#logo {
+background-image: url("../imgs/logo1.png");
+background-repeat: no-repeat;
+width: 423px;
+height: 107px;
+position: block;
+}
+
+#titulopag {
+font-family: Lucida Console;
+text-indent: 1.5em;
+font-size: 30px;
+left: 30px;
+color: #FFA500;
+}
+
+#corsmall {
+color: #F8F8FF;
+}
+
+#fontepadrao {
+font-family: Lucida Console;
+font-weight: bold;
+}
+
+#fontebotao {
+font-family: Courier New;
+font-weight: bold;
+}
+
+#msgavisotitulo{
+font-family: Lucida Console;
+font-weight: bold;
+font-size: 20px;
+color: #363636;
+}
+
+#msgavisotexto {
+font-family: Courier New;
+font-size: 15px;
+font-weight: bold;
+font-style: oblique;
+color: #FFFFFF;
+}
+
+.corbalao {
+background: #778899;
+}
+
+.titulotabela th{
+background-color: #BEBEBE;
+text-align: center;
+font-family: Courier New;
+font-weight: bold;
+}
+
+.fundotabela td{
+background-color: white;
+text-align: left;
+font-family: Arial;
+}

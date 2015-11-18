@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mudar Senha</title>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-theme.css" rel="stylesheet">
+<link href="css/full.css" rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet">
+<link href="css/formestilo.css" rel="stylesheet">
+</head>
+<body id="fundo2">
+
+<!-- Chamadas JavaScript -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/npm.js"></script>
+
+<!-- Código Menu TOP -->
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+
+<!-- Função Responsiva -->
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" >
+<img height="20" width="23" src="imgs/logo2.png">
+</a>
+</div>
+
+<!-- Menu TOP Usuário -->
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Nome do Usuário Aqui <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li>
+<a href="operadorperfil.html"><i class="fa fa-fw fa-user"></i> Perfil</a>
+</li>
+<li>
+<li>
+<a href="operadormudarsenha.html"><i class="fa fa-fw fa-lock"></i> Senha</a>
+</li>
+<li class="divider"></li>
+<li>
+<a href="indexoperador.html"><i class="fa fa-fw fa-power-off"></i> Deslogar</a>
+</li>
+</li>
+</ul>
+</li>
+</ul>
+
+<!-- Menu Esquerdo -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+<ul class="nav navbar-nav side-nav">
+<li>
+<a href="operadorprojeto.html"><i class="fa fa-fw fa-folder"></i> PROJETO</a>
+</li>
+<li>
+<a href="operadorrelatorio.html"><i class="fa fa-fw fa-bar-chart"></i> RELATÓRIO</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- Texto e botão do título da página -->
+<div class="page-header">
+<h1 id="titulopag">Senha: <small id="corsmall">Preencha o formulário abaixo para mudar sua senha.</small></h1>
+</div>
+
+<!-- Código para mudança de senha -->
+<form class="formularioestilo" action="operadormudarsenha.html">
+<h1>ALTERAR SENHA:</h1>
+<input type="password" name="senhaantiga" class="campoestilo" placeholder="Digite aqui a sua senha antiga." required>
+<input type="password" name="senhanova" class="campoestilo" placeholder="Digite aqui a sua senha nova." required>
+<input type="submit" value="SALVAR" class="botaoestilo">
+</form>
+</body>
+</html>
