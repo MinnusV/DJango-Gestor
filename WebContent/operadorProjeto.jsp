@@ -48,17 +48,15 @@
 <img height="20" width="23" src="imgs/logo2.png">
 </a>
 </div>
-<% 
-session.getAttribute("usRs");
-%>
+
 <!-- Menu TOP Usuário -->
 <ul class="nav navbar-nav navbar-right">
 <li class="dropdown">
-<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> ${usRs.getNome()} <b class="caret"></b></a>
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Menu <b class="caret"></b></a>
 <ul class="dropdown-menu">
 <li>
 <li>
-<a href="operadormudarsenha.html"><i class="fa fa-fw fa-lock"></i> Senha</a>
+<a href="operadorMudarSenha.jsp"><i class="fa fa-fw fa-lock"></i> Senha</a>
 </li>
 <li class="divider"></li>
 <li>
@@ -85,7 +83,11 @@ session.getAttribute("usRs");
 
 <!-- Texto e botão do título da página -->
 <div class="page-header">
-<h1 id="titulopag">Projeto: <small id="corsmall">Confira aqui todos os projetos cadastrados e suas atividades. <button class="btn btn-success btn-xs" data-toggle="modal" href="#full-width" id="fontebotao" data-dismiss="modal">CADASTRAR NOVO PROJETO</button></small></h1>
+<h1 id="titulopag">Projeto: <small id="corsmall">Confira aqui todos os projetos cadastrados e suas atividades. 
+<button class="btn btn-success btn-xs" data-toggle="modal" href="#full-width" id="fontebotao" data-dismiss="modal">CADASTRAR NOVO PROJETO</button>
+<button class="btn btn-success btn-xs" data-toggle="modal" href="#full-width3" id="fontebotao" data-dismiss="modal">CRIAR ATIVIDADE</button>
+</small>
+</h1>
 </div>
 
 
@@ -99,32 +101,43 @@ session.getAttribute("usRs");
 <div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title" id="fontepadrao">
-<a data-toggle="collapse" data-target="#<%=p.getId() %>" href="#<%=p.getId() %>" class="collapsed"><%=p.getNome() %></a>
+<a data-toggle="collapse" data-target="#<%=p.getId()%>" href="#<%=p.getId()%>" class="collapsed"><%=p.getNome()%></a>
 </h3>
 </div>
-<div id="<%=p.getId() %>" class="panel-collapse collapse">
+<div id="<%=p.getId()%>" class="panel-collapse collapse">
 <div class="panel-body">
 <button class="btn btn-warning btn-xs" data-toggle="modal" href="#full-width2" id="fontebotao" data-dismiss="modal">DETALHES</button> 
-<a class="btn btn-danger btn-xs" href="RemoveProjetoServlet?id=<%=p.getId() %>" id="fontebotao">EXCLUIR PROJETO</a>
+<a class="btn btn-danger btn-xs" href="RemoveProjetoServlet?id=<%=p.getId()%>" id="fontebotao">EXCLUIR PROJETO</a>
 <p></p>
 
 <!-- Lista de atividades -->
 <div class="panel panel-default">
 			<%
-				DaoAtividade daoAtividade = new DaoAtividadeImpl();
-				List<Atividade> listaAtv = daoAtividade.list();
+				String url = "jdbc:mysql://localhost:3306/gestor";
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection = DriverManager.getConnection(url, "root", "root");	
+				
+					Statement statement = connection.createStatement();
+					
+					String sql = "SELECT atividade.nome, atividade.id, projeto.id FROM atividade" +
+					" INNER JOIN projeto" +
+					" WHERE projeto.id = atividade.projeto";
+					
+					ResultSet resultSet = statement.executeQuery(sql);
 			%>
 			<div class="panel-heading">
-			<h3 class="panel-title" id="fontepadrao" style="display:inline;">Atividade(s):</h3> <button class="btn btn-success btn-xs" data-toggle="modal" href="#full-width3" id="fontebotao" data-dismiss="modal">CRIAR ATIVIDADE</button>
+			<h3 class="panel-title" id="fontepadrao" style="display:inline;">Atividade(s):</h3>
 			</div>
 			<div class="panel-body">
 			<%
-				for(Atividade a : listaAtv){
+				while(resultSet.next()){
+					if(p.getId().equals(resultSet.getInt(3))){
 			%>
 			<button class="btn btn-warning btn-xs" data-toggle="modal" href="#full-width4" id="fontebotao" data-dismiss="modal">DETALHES</button> 
-			<a class="btn btn-danger btn-xs" href="RemoveAtividadeServlet?id=<%=a.getId() %>" id="fontebotao">X</a> 
-			<b><%=a.getNome() %></b><br>
+			<a class="btn btn-danger btn-xs" href="RemoveAtividadeServlet?id=<%=resultSet.getInt(2) %>" id="fontebotao">X</a> 
+			<b><%=resultSet.getString(1) %></b><br>
 			<%
+					}
 				}
 			%>
 		</div>

@@ -41,17 +41,20 @@ public class CadastraUsuarioServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String nome = request.getParameter("nome");
 		String senha = request.getParameter("senha");
-		
+		String funcao = request.getParameter("funcao");
+		String tipoUsuario = request.getParameter("tipoUsuario");
 		
 		Usuario u = new Usuario();
 		u.setEmail(email);
 		u.setNome(nome);
 		u.setSenha(senha);
+		u.setFuncao(funcao);
+		u.setTipoUsuario(tipoUsuario);
 		
 		try {
 			daoUsuario.save(u);
 			
-			response.sendRedirect("indexoperador.html");
+			response.sendRedirect("indexOperador.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

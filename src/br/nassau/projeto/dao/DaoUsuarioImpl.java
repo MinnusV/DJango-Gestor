@@ -53,6 +53,42 @@ public class DaoUsuarioImpl extends GenericDao implements DaoUsuario{
 		}
 	}
 	
+	public void validarUsuario(Usuario usuario) throws SQLException{
+		String sql = "UPDATE usuario SET tipoUsuario=? WHERE id=?";
+		PreparedStatement st = null;
+		try {
+			openConn();
+			st = conn.prepareStatement(sql);
+			st.setString(1, usuario.getTipoUsuario());
+			st.setInt(2, usuario.getId());
+			st.execute();
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			if(st != null)
+				st.close();
+			closeConn();
+		}
+	}
+	
+	public void updateSenha(Usuario usuario, Integer id) throws SQLException{
+		String sql = "UPDATE usuario SET senha=? WHERE id=?";
+		PreparedStatement st = null;
+		try {
+			openConn();
+			st = conn.prepareStatement(sql);
+			st.setString(1, usuario.getSenha());
+			st.setInt(2, id);
+			st.execute();
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally {
+			if(st != null)
+				st.close();
+			closeConn();
+		}
+	}
+	
 	public void remove(Usuario usuario) throws SQLException{
 		remove(usuario.getId());
 	}
@@ -72,10 +108,6 @@ public class DaoUsuarioImpl extends GenericDao implements DaoUsuario{
 				st.close();
 			closeConn();
 		}
-	}
-	
-	public void get(Usuario usuario) throws SQLException{
-		get(usuario.getId());
 	}
 	
 	public Usuario get(int id) throws SQLException{

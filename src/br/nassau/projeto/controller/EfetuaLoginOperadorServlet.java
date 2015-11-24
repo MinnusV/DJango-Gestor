@@ -9,11 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import br.nassau.projeto.dao.DaoUsuario;
 import br.nassau.projeto.dao.DaoUsuarioImpl;
-import br.nassau.projeto.model.Usuario;
 
 /**
  * Servlet implementation class EfetuaLoginServlet
@@ -27,7 +25,6 @@ public class EfetuaLoginOperadorServlet extends HttpServlet {
      */
 	
 	private DaoUsuario daoUsuario;
-	private Usuario us;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException{
@@ -56,7 +53,6 @@ public class EfetuaLoginOperadorServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
 		
-		Integer id = Integer.valueOf(request.getParameter("id"));
 		
 		boolean aut = false;
 		
@@ -64,13 +60,9 @@ public class EfetuaLoginOperadorServlet extends HttpServlet {
 			aut = daoUsuario.autenticaOperador(email, senha);
 			
 			if(aut){
-				us = daoUsuario.get(id);
-				HttpSession session = request.getSession();
-				session.setAttribute("usRs", us);
-				
 				response.sendRedirect("operadorProjeto.jsp");
 			}else{
-				response.sendRedirect("indexoperador.html");
+				response.sendRedirect("indexOperador.jsp");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -31,23 +31,6 @@
 <h2 id="nomelogin">LOGIN:</h2>
 
 <form action="EfetuaLoginOperadorServlet" method="post">
-<%
-String url = "jdbc:mysql://localhost:3306/gestor";
-Class.forName("com.mysql.jdbc.Driver");
-Connection connection = DriverManager.getConnection(url, "root", "root");
-
-    Statement statement = connection.createStatement();
-    
-    String sql = "SELECT usuario.id AS ID FROM usuario" +
-    " WHERE usuario.tipoUsuario = 'Operador'";
-    
-    ResultSet resultSet = statement.executeQuery(sql);
-%>
-<div class="input-group input-group-lg">
-<%while(resultSet.next()){ %>
-<input type="hidden" class="form-control" name="id" value="<%=resultSet.getInt(1) %>">
-<%} %>
-</div>
 <div class="input-group input-group-lg">
 <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
 <input type="text" class="form-control" name="email" placeholder="E-mail" required>
@@ -59,7 +42,7 @@ Connection connection = DriverManager.getConnection(url, "root", "root");
 <button type="submit" class="float" id="fontebotao">ENTRAR</button>
 </form>
 <br>
-<center><a class="btn btn-primary btn-xs" href="operadorsolicitarcadastro.html" id="fontebotao">SOLICITAR CADASTRO</a> <a class="btn btn-primary btn-xs" href="operadorrecuperarsenha.html" id="fontebotao">RECUPERAR SENHA</a> <a class="btn btn-danger btn-xs" href="indexAdmin.jsp" id="fontebotao">ADMINISTRAÇÃO</a></center>
+<center><a class="btn btn-primary btn-xs" href="operadorSolicitarCadastro.jsp" id="fontebotao">SOLICITAR CADASTRO</a> <a class="btn btn-primary btn-xs" href="operadorrecuperarsenha.html" id="fontebotao">RECUPERAR SENHA</a> <a class="btn btn-danger btn-xs" href="indexAdmin.jsp" id="fontebotao">ADMINISTRAÇÃO</a></center>
 </div>
 </div>
 </body>

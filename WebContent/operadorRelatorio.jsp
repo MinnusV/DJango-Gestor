@@ -53,11 +53,11 @@
 <ul class="dropdown-menu">
 <li>
 <li>
-<a href="operadormudarsenha.html"><i class="fa fa-fw fa-lock"></i> Senha</a>
+<a href="operadorMudarSenha.jsp"><i class="fa fa-fw fa-lock"></i> Senha</a>
 </li>
 <li class="divider"></li>
 <li>
-<a href="indexoperador.html"><i class="fa fa-fw fa-power-off"></i> Deslogar</a>
+<a href="indexOperador.jsp"><i class="fa fa-fw fa-power-off"></i> Deslogar</a>
 </li>
 </li>
 </ul>

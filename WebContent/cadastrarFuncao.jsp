@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-<%@ page import="java.sql.*" %>  
-<%@ page import="br.nassau.projeto.model.Usuario" %> 
-<%@ page import="br.nassau.projeto.dao.*" %>   
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,17 +7,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin Solicitação</title>
+<title>DJango Admin Painel</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
-<link href="css/bootstrap-modal.css" rel="stylesheet">
-<link href="css/bootstrap-modal-bs3patch.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/full.css" rel="stylesheet">
+<link href="css/formestilo.css" rel="stylesheet">
 <link href="css/font-awesome.css" rel="stylesheet">
 <link href="css/paineladmin.css" rel="stylesheet">
 <link href="css/morris.css" rel="stylesheet">
-<link href="css/prettify.css" rel="stylesheet">
 </head>
 <body>
 
@@ -33,8 +25,6 @@
 <script src="js/jquery.flot.resize.js"></script>
 <script src="js/jquery.flot.tooltip.min.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/bootstrap-modal.js"></script>
-<script src="js/bootstrap-modalmanager.js"></script>
 <script src="js/npm.js"></script>
 <script src="js/phael.min.js"></script>
 <script src="js/morris.js"></script>
@@ -66,7 +56,6 @@
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${usRs.getNome()} <b class="caret"></b></a>
 <ul class="dropdown-menu">
 <li>
-<li>
 <a href="adminPainelMudarSenha.jsp"><i class="fa fa-fw fa-lock"></i> Senha</a>
 </li>
 <li class="divider"></li>
@@ -87,13 +76,13 @@
 <li>
 <a href="adminPainelProjeto.jsp"><i class="fa fa-fw fa-folder"></i> Projeto</a>
 </li>
-<li class="active">
+<li>
 <a href="adminPainelSolicitacao.jsp"><i class="fa fa-fw fa-toggle-up"></i> Solicitação</a>
 </li>
 <li>
 <a href="adminPainelUsuario.jsp"><i class="fa fa-fw fa-reorder"></i> Usuário</a>
 </li>
-<li>
+<li class="active">
 <a href="cadastrarFuncao.jsp"><i class="fa fa-fw fa-paperclip"></i> Função</a>
 </li>
 </ul>
@@ -106,57 +95,19 @@
 <!-- Cabeçalho -->
 <div class="row">
 <div class="col-lg-12">
-<h1 class="page-header" id="fontepadrao">Solicitação: <small>Confira aqui a(s) nova(s) solicitação(ções).</small></h1>
+<h1 class="page-header" id="fontepadrao">Função: <small>Preencha corretamente o(s) campo(s) abaixo.</small></h1>
 </div>
 </div>
 
-	<%
-		String url = "jdbc:mysql://localhost:3306/gestor";
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection connection = DriverManager.getConnection(url, "root", "root");	
-		
-			Statement statement = connection.createStatement();
-		
-			String sql = "SELECT usuario.nome AS NOME, usuario.email AS EMAIL, funcao.tipoFuncao AS FUNCAO," +
-						" usuario.tipoUsuario AS TIPO, usuario.id AS ID FROM usuario" +
-						" INNER JOIN funcao" +
-						" ON usuario.funcao = funcao.id" +
-						" WHERE usuario.tipoUsuario = 'Espera'";
-			
-			ResultSet resultSet = statement.executeQuery(sql);
-	%>
-
-<!-- Tabela com lista de usuários -->
-<div class="table-responsive">
-<table class="table table-bordered table-hover table-striped" style="width: 900px; margin: auto;">
-<thead>
-<tr class="titulotabela">
-<th>NOME:</th>
-<th>E-MAIL:</th>
-<th>FUNÇÃO:</th>
-<th>TIPO:</th>
-<th>VALIDAÇÃO:</th>
-</tr>
-</thead>
-<tbody>
-<%while(resultSet.next()){ %>
-<tr class="fundotabela">
-<td><%= resultSet.getString(1) %></td>
-<td><%= resultSet.getString(2) %></td>
-<td><%= resultSet.getString(3) %></td>
-<td><%= resultSet.getString(4) %></td>
-<td style="text-align: center;">
-<a type="button" class="btn btn-primary btn-xs" data-toggle="modal" href="ValidarUsuarioServlet?id=<%= resultSet.getInt(5) %>" id="fontebotao">VALIDAR</a>
-</td>
-</tr>
-<%} %>
-</tbody>
-</table>
-</div>
+<!-- Cadastro de funções -->
+<form class="formularioestilo" action="CadastrarFuncaoServlet" method="post">
+<h1>Nova Função:</h1>
+<input type="text" name="funcao" class="campoestilo" placeholder="Digite aqui a funçao." required>
+<input type="submit" value="SALVAR" class="botaoestilo">
+</form>
 
 </div>
 </div>
 </div>
-
 </body>
 </html>

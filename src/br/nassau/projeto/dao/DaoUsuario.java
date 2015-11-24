@@ -11,11 +11,13 @@ public interface DaoUsuario {
 	
 	public void update(Usuario usuario) throws SQLException;
 	
+	public void validarUsuario(Usuario usuario) throws SQLException;
+	
+	public void updateSenha(Usuario usuario, Integer id) throws SQLException;
+	
 	public void remove(Usuario usuario) throws SQLException;
 	
 	public void remove(Integer id) throws SQLException;
-	
-	public void get(Usuario usuario) throws SQLException;
 	
 	public Usuario get(int id) throws SQLException;
 	

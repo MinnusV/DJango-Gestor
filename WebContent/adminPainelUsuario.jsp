@@ -65,7 +65,7 @@
 <ul class="dropdown-menu">
 <li>
 <li>
-<a href="adminpainelmudarsenha.html"><i class="fa fa-fw fa-lock"></i> Senha</a>
+<a href="adminPainelMudarSenha.jsp"><i class="fa fa-fw fa-lock"></i> Senha</a>
 </li>
 <li class="divider"></li>
 <li>
@@ -90,6 +90,9 @@
 </li>
 <li class="active">
 <a href="adminPainelUsuario.jsp"><i class="fa fa-fw fa-reorder"></i> Usuário</a>
+</li>
+<li>
+<a href="cadastrarFuncao.jsp"><i class="fa fa-fw fa-paperclip"></i> Função</a>
 </li>
 </ul>
 </div>
@@ -116,7 +119,7 @@
 						" usuario.tipoUsuario AS TIPO, usuario.id AS ID FROM usuario" +
 						" INNER JOIN funcao" +
 						" ON usuario.funcao = funcao.id" +
-						" WHERE usuario.tipoUsuario <> 'null'";
+						" WHERE usuario.tipoUsuario <> 'Espera'";
 			
 			ResultSet resultSet = statement.executeQuery(sql);
 	%>

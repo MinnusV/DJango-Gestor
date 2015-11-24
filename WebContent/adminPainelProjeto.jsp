@@ -70,7 +70,7 @@
 <ul class="dropdown-menu">
 <li>
 <li>
-<a href="adminpainelmudarsenha.html"><i class="fa fa-fw fa-lock"></i> Senha</a>
+<a href="adminPainelMudarSenha.jsp"><i class="fa fa-fw fa-lock"></i> Senha</a>
 </li>
 <li class="divider"></li>
 <li>
@@ -95,6 +95,9 @@
 </li>
 <li>
 <a href="adminPainelUsuario.jsp"><i class="fa fa-fw fa-reorder"></i> Usuário</a>
+</li>
+<li>
+<a href="cadastrarFuncao.jsp"><i class="fa fa-fw fa-paperclip"></i> Função</a>
 </li>
 </ul>
 </div>
@@ -132,18 +135,17 @@
 <!-- Lista de atividades -->
 <div class="panel panel-default">
 			<%
-			String url = "jdbc:mysql://localhost:3306/gestor";
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(url, "root", "root");	
-			
-				Statement statement = connection.createStatement();
+				String url = "jdbc:mysql://localhost:3306/gestor";
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection connection = DriverManager.getConnection(url, "root", "root");	
 				
-				String sql = "SELECT atividade.id AS ID, atividade.nome AS NOME, projeto.nome AS PROJETO FROM atividade" +
-				" INNER JOIN projeto" +
-				" ON atividade.projeto = projeto.id" +
-				" WHERE projeto.id = 1";
-				
-				ResultSet resultSet = statement.executeQuery(sql);
+					Statement statement = connection.createStatement();
+					
+					String sql = "SELECT atividade.nome, atividade.id, projeto.id FROM atividade" +
+					" INNER JOIN projeto" +
+					" WHERE projeto.id = atividade.projeto";
+					
+					ResultSet resultSet = statement.executeQuery(sql);
 			%>
 			<div class="panel-heading">
 			<h3 class="panel-title" id="fontepadrao" style="display:inline;">Atividade(s):</h3>
@@ -151,15 +153,17 @@
 			<div class="panel-body">
 			<%
 				while(resultSet.next()){
+					if(p.getId().equals(resultSet.getInt(3))){
 			%>
 			<button class="btn btn-warning btn-xs" data-toggle="modal" href="#full-width4" id="fontebotao" data-dismiss="modal">DETALHES</button> 
-			<a class="btn btn-danger btn-xs" href="RemoveAtividadeServlet?id=<%=resultSet.getInt(1) %>" id="fontebotao">X</a> 
-			<b><%=resultSet.getString(2) %></b><br>
+			<a class="btn btn-danger btn-xs" href="RemoveAtividadeServlet?id=<%=resultSet.getInt(2) %>" id="fontebotao">X</a> 
+			<b><%=resultSet.getString(1) %></b><br>
 			<%
+					}
 				}
 			%>
-			</div>
-</div>
+		</div>
+		</div>
 </div>
 </div>
 </div>
@@ -178,17 +182,17 @@
 <form style="margin: 10px">
 <div class="form-group">
 <label id="fontepadrao">Nome:</label>
-<input type="text" class="form-control" disabled>
+<input type="text" class="form-control" readonly>
 </div>
 
 <div class="form-group">
-<label id="fontepadrao">Responsável(is):</label>
-<input type="text" class="form-control" disabled>
+<label id="fontepadrao">Responsável:</label>
+<input type="text" class="form-control" readonly>
 </div>
 
 <div class="form-group">
 <label id="fontepadrao">Descrição:</label>
-<textarea class="form-control" rows="2" disabled></textarea>
+<textarea class="form-control" rows="2" readonly></textarea>
 </div>
 </form>
 
@@ -208,27 +212,27 @@
 <form style="margin: 10px">
 <div class="form-group">
 <label id="fontepadrao">Nome:</label>
-<input type="text" class="form-control" disabled>
+<input type="text" class="form-control" readonly>
 </div>
 
 <div class="form-group">
-<label id="fontepadrao">Responsável(is):</label>
-<input type="text" class="form-control" disabled>
+<label id="fontepadrao">Responsável:</label>
+<input type="text" class="form-control" readonly>
 </div>
 
 <div class="form-group">
 <label id="fontepadrao">Prioridade:</label>
-<input type="text" class="form-control" disabled>
+<input type="text" class="form-control" readonly>
 </div>
 
 <div class="form-group">
 <label id="fontepadrao">Tempo:</label>
-<input type="text" class="form-control" disabled>
+<input type="text" class="form-control" readonly>
 </div>
 
 <div class="form-group">
 <label id="fontepadrao">Descrição:</label>
-<textarea class="form-control" rows="3" disabled></textarea>
+<textarea class="form-control" rows="3" readonly></textarea>
 </div>
 </form>
 

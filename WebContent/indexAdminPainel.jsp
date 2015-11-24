@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="br.nassau.projeto.model.*" %>
+<%@ page import="br.nassau.projeto.dao.*" %>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Iterator"%> 
+<%@ page import="java.util.List"%> 
+<%@ page import="java.sql.*" %>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,7 +63,7 @@
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${usRs.getNome()} <b class="caret"></b></a>
 <ul class="dropdown-menu">
 <li>
-<a href="adminpainelmudarsenha.html"><i class="fa fa-fw fa-lock"></i> Senha</a>
+<a href="adminPainelMudarSenha.jsp"><i class="fa fa-fw fa-lock"></i> Senha</a>
 </li>
 <li class="divider"></li>
 <li>
@@ -76,10 +84,13 @@
 <a href="adminPainelProjeto.jsp"><i class="fa fa-fw fa-folder"></i> Projeto</a>
 </li>
 <li>
-<a href="adminpainelsolicitacao.html"><i class="fa fa-fw fa-toggle-up"></i> Solicitação</a>
+<a href="adminPainelSolicitacao.jsp"><i class="fa fa-fw fa-toggle-up"></i> Solicitação</a>
 </li>
 <li>
 <a href="adminPainelUsuario.jsp"><i class="fa fa-fw fa-reorder"></i> Usuário</a>
+</li>
+<li>
+<a href="cadastrarFuncao.jsp"><i class="fa fa-fw fa-paperclip"></i> Função</a>
 </li>
 </ul>
 </div>
@@ -104,6 +115,28 @@
 </div>
 </div>
 
+	<%
+		String url = "jdbc:mysql://localhost:3306/gestor";
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection connection = DriverManager.getConnection(url, "root", "root");	
+		
+			Statement statement = connection.createStatement();
+		
+			String sql = "SELECT usuario.nome AS NOME, usuario.email AS EMAIL, funcao.tipoFuncao AS FUNCAO," +
+						" usuario.tipoUsuario AS TIPO, usuario.id AS ID FROM usuario" +
+						" INNER JOIN funcao" +
+						" ON usuario.funcao = funcao.id" +
+						" WHERE usuario.tipoUsuario = 'Espera'";
+			
+			ResultSet resultSet = statement.executeQuery(sql);
+			
+			int sol = 0;
+			
+			while(resultSet.next()){
+				sol++;
+			}
+	%>
+
 <!-- Blocos de estatística -->
 <div class="row">
 <div class="col-lg-3 col-md-6">
@@ -114,7 +147,7 @@
 <i class="fa fa-toggle-up fa-5x"></i>
 </div>
 <div class="col-xs-9 text-right">
-<div class="huge">#</div>
+<div class="huge"><%= sol %></div>
 <div>SOLICITAÇÕES</div>
 </div>
 </div>
@@ -123,6 +156,14 @@
 </div>
 
 <div class="col-lg-3 col-md-6">
+	<%
+		DaoProjeto daoProjeto = new DaoProjetoImpl();
+		List<Projeto> listaProj = daoProjeto.list();
+		Integer pr = 0;
+		for(Projeto p : listaProj){
+			pr++;
+		}
+	%>
 <div class="panel panel-green">
 <div class="panel-heading">
 <div class="row">
@@ -130,7 +171,7 @@
 <i class="fa fa-folder fa-5x"></i>
 </div>
 <div class="col-xs-9 text-right">
-<div class="huge">#</div>
+<div class="huge"><%= pr %></div>
 <div>PROJETOS</div>
 </div>
 </div>
@@ -139,6 +180,14 @@
 </div>
 
 <div class="col-lg-3 col-md-6">
+	<%
+		DaoAtividade daoAtividade = new DaoAtividadeImpl();
+		List<Atividade> listaAtiv = daoAtividade.list();
+		Integer atv = 0;
+		for(Atividade a : listaAtiv){
+			atv++;
+		}
+	%>
 <div class="panel panel-yellow">
 <div class="panel-heading">
 <div class="row">
@@ -146,7 +195,7 @@
 <i class="fa fa-plus fa-5x"></i>
 </div>
 <div class="col-xs-9 text-right">
-<div class="huge">#</div>
+<div class="huge"><%= atv %></div>
 <div>ATIVIDADES</div>
 </div>
 </div>
@@ -155,6 +204,14 @@
 </div>
 
 <div class="col-lg-3 col-md-6">
+	<%
+		DaoUsuario daoUsuario = new DaoUsuarioImpl();
+		List<Usuario> listaUser = daoUsuario.list();
+		Integer us = 0;
+		for(Usuario u : listaUser){
+			us++;
+		}
+	%>
 <div class="panel panel-red">
 <div class="panel-heading">
 <div class="row">
@@ -162,7 +219,7 @@
 <i class="fa fa-user fa-5x"></i>
 </div>
 <div class="col-xs-9 text-right">
-<div class="huge">#</div>
+<div class="huge"><%= us - sol %></div>
 <div>USUÁRIOS</div>
 </div>
 </div>
